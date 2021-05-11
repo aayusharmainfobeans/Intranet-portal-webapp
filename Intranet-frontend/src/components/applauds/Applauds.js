@@ -24,8 +24,8 @@ function Applauds(){
                                 </div>
                             </div>
                             <div className="onchange-award">
-                                    <p className="title">Aayush</p>
-                                    <h4 className="text">Sharma</h4>
+                                    <p className="title">Reflects our culture piller</p>
+                                    <h5 className="text">Commitment</h5>
                             </div>
                             <div className="d-flex flex-row justify-content-around">
                                 <div className="p-2">
