@@ -23,17 +23,16 @@
     color: #ea1b3c;
 }
 
-.title,.text{ 
+.award-date .title,.award-date .text{ 
     color: #ea1b3c;
     font-weight:600;
-
 }
 
 .list-inline-item{
     width: 20px;
 }
 
-.award-date {
+.award-date, .onchange-award{
     background: #fafafa;
     margin: 16px 0px 16px 0px;
     box-shadow: inset 0px 2px 4px rgb(0 0 0 / 5%), inset 0px -2px 2px rgb(0 0 0 / 5%);
@@ -46,6 +45,21 @@
     justify-content: center;
     align-items: center;
 }
+
+
+.item:hover .award-date{
+    display: none;
+}
+
+.item .onchange-award{
+    display:none;
+}
+
+.item:hover .onchange-award{
+    display: block;
+}
+
+
 
 .owl-prev {
     left: -30px;

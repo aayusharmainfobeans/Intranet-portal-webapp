@@ -3,6 +3,7 @@ import {FaRegComment,FiThumbsUp} from 'react-icons/all';
 import "./Applauds.css";
 
 function Applauds(){
+    
     return(
         <>
             <div className="item text-center">
@@ -21,6 +22,10 @@ function Applauds(){
                                 <div className="date">
                                     <p className="text">7th June</p>
                                 </div>
+                            </div>
+                            <div className="onchange-award">
+                                    <p className="title">Aayush</p>
+                                    <h4 className="text">Sharma</h4>
                             </div>
                             <div className="d-flex flex-row justify-content-around">
                                 <div className="p-2">

@@ -1,3 +1,4 @@
+import { useHistory } from "react-router-dom";
 import OwlCarousel from 'react-owl-carousel';
 import "./Applauds.css"
 import 'owl.carousel/dist/assets/owl.carousel.min.css';
@@ -28,6 +29,12 @@ const options = {
 }
 
 function ApplaudsList() {
+
+    let history=useHistory();
+
+    if(!sessionStorage.token){
+        history.push("/login")
+    }
     return (
         <div className="container">
             <div className="row mb-5">

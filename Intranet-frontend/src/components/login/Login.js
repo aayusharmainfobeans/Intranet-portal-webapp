@@ -9,30 +9,30 @@ const user={
     password:"aayu8982"
 }
 
-
-
 function Login(){
 
-let history=useHistory();
+    let history=useHistory();
+
+    if(sessionStorage.token){
+        history.push("/");
+    }
 
 const loginCheck=(e)=>{
     e.preventDefault();
 
-    
-    
     const email= e.target.elements[0].value;
     const password= e.target.elements[1].value;
 
     if(email===user.email && password===user.password){
-        alert('true');
+        sessionStorage.setItem('token',email);
         history.push("/home");
     } else{
-        alert('false');
+        alert('invalid email password');
     }
 }
     
     return(
-    <div>
+    <div className="logincontainer">
         <nav className="navbar navbar-light">
             <div className="container-fluid">
             <a className="navbar-brand text-white" href="#">
@@ -48,20 +48,21 @@ const loginCheck=(e)=>{
                 </div> 
                 <div className="form-field">
                     <label className="form-label">Email</label>
-                        <input type="text" className="form-control" placeholder="Your InfoBeans email address" />
+                        <input type="email" className="form-control" placeholder="Your InfoBeans email address" />
                 </div>
                 <div className="form-field">
                     <label className="form-label stretch">Password <a href="#">Forgot?</a></label>
-                        <input type="text" className="form-control" placeholder="Your password" />
+                        <input type="password" className="form-control" placeholder="Your password" />
                 </div>
                 <div className="form-field">
                     <button className="button inverse full-width" >Login to Intranet Portal</button>
                 </div>
             </form>
+            
         </div>
         <div className="footer">
                 &copy; Copyright 2020 InfoBeans. All Rights Reserved.
-        </div>
+            </div>
     </div>
     )
 }

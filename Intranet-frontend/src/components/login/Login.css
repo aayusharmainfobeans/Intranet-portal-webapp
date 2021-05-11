@@ -1,13 +1,11 @@
-body{
-    background-image:url('../../images/login-bg.png')
-}
 
 .navbar{
     background-color: #3a3537;
     
 }
 
-.container{
+.logincontainer{
+    background-image:url('../../images/login-bg.png');
     flex: 1 1 auto;
     backface-visibility: hidden;
     display: flex;
