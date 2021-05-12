@@ -6,5 +6,6 @@ const router = express.Router()
 
 
 router.post('/create',AppCtrl.createApplaud);
+router.get('/home',AppCtrl.getApplauds);
 
 module.exports = router

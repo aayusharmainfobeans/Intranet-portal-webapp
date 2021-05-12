@@ -6,13 +6,6 @@ createApplaud = (req,res)=>{
 
     console.log(body);
 
-    if(!body){
-        return res.status(400).json({
-            success:false,
-            error:'you must provide a complete details'
-        })
-    }
-
     const applaud = new Applaud(body);
 
     if(!applaud){
@@ -34,6 +27,17 @@ createApplaud = (req,res)=>{
 }
 
 
+getApplauds = async (req,res)=>{
+    await Applaud.find({},(err,applauds)=>{
+        if(err){
+            return res.status(400).json({success:false,error:err})
+        }
+        return res.status(200).json({success:true,data: applauds})
+    }).catch(err => console.log(err));
+}
+
+
 module.exports = {
-    createApplaud
+    createApplaud,
+    getApplauds
 }

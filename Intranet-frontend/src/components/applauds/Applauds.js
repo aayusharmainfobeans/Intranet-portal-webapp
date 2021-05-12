@@ -13,7 +13,7 @@ function Applauds(){
                                 <img src="https://infobeans-intranet.web.app/assets/images/sample-profile-image.jpg" alt="photo"
                                 className="img-fluid rounded-circle w-50 m-3 " />
                             </div>
-                            <h4 className="name">Aayush Sharma</h4>
+                            <h4 className="name">Lorem Ipssum</h4>
                             <p>Open Source</p>
                             <div className="award-date">
                                 <div className="Performence">
