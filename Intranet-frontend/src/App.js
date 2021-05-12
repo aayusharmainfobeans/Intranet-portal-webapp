@@ -1,10 +1,8 @@
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
 
 import Login from './components/login/Login'
-import Applauds from './components/applauds/Applauds'
 import ApplaudsList from './components/applauds/ApplaudsList'
-import { Component } from "react";
 
 
 function App(){
