@@ -16,6 +16,7 @@ function Login(){
     let history=useHistory();
     const [isValid, setIsValid] = useState(false);
     const [message, setMessage] = useState();
+    const [passwordErr,setPassErr]=useState();
 
     if(sessionStorage.token){
         history.push("/");
@@ -44,7 +45,21 @@ function Login(){
             setMessage('Invalid email Syntax');
         }
     }
-
+    
+    const validatePasswordSyntax = (e) =>{
+        e.preventDefault();
+        const password =e.target.value;
+        if(checkPassword(password)){
+            setIsValid(true);
+            setPassErr();
+        }else{
+            setIsValid(false);
+            setPassErr('Invalid Password min 8 letter password, with at least a symbol, upper and lower case letters and a number');
+        }
+       if(password==0){
+           setPassErr();
+       }
+    }
     
     
 const loginCheck=(e)=>{
@@ -95,7 +110,8 @@ const loginCheck=(e)=>{
 
                 <div className="form-field">
                     <label className="form-label stretch">Password <a href="#" id="forgot">Forgot?</a></label>
-                        <input type="password" className="form-control" placeholder="Your password" />
+                        <input type="password" className="form-control" placeholder="Your password" onChange={(e)=>validatePasswordSyntax(e)} />
+                        <div className={`message ${isValid ? 'success' : 'error'}`}>{passwordErr}</div>
                 </div>
                 <div className="form-field">
                     <button className="button inverse full-width" >Login to Intranet Portal</button>
