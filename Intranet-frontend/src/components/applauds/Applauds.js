@@ -37,8 +37,6 @@ function Applauds(props){
                                         <li className="list-inline-item">
                                                 <FaRegComment />
                                                 {props.data.comments}
-                                                
-                                                
                                         </li>
                                     </ul>
                                 </div>

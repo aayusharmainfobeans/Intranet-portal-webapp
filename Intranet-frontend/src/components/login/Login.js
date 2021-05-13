@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import "./Login.css";
 import logo1 from '../../images/logo-infobeans-white.svg';
 import logo2 from '../../images/logo-infobeans-black.svg';
+import {CgMenuGridR} from 'react-icons/all';
+import { IconContext } from "react-icons";
 
 const user={
     email:"aayu8982@gmail.com",
@@ -39,6 +41,14 @@ const loginCheck=(e)=>{
                 <img src={logo1} alt="" width="128" height="40" className="d-inline-block align-text-down" />
                 Intranet Portal
             </a>
+            <ul class="nav justify-content-end">
+            <li class="nav-item text-white">
+            <IconContext.Provider value={{size:"2rem", className: "global-class-name" }}>
+            <CgMenuGridR />
+            </IconContext.Provider>
+                 
+            </li>
+            </ul>
             </div>
         </nav>
         <div className="login-container">
@@ -51,7 +61,7 @@ const loginCheck=(e)=>{
                         <input type="email" className="form-control" placeholder="Your InfoBeans email address" />
                 </div>
                 <div className="form-field">
-                    <label className="form-label stretch">Password <a href="#">Forgot?</a></label>
+                    <label className="form-label stretch">Password <a href="#" id="forgot">Forgot?</a></label>
                         <input type="password" className="form-control" placeholder="Your password" />
                 </div>
                 <div className="form-field">

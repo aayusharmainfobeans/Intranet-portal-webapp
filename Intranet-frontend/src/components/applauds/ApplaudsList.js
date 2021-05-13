@@ -4,9 +4,10 @@ import OwlCarousel from 'react-owl-carousel';
 import "./Applauds.css"
 import 'owl.carousel/dist/assets/owl.carousel.min.css';
 import 'owl.carousel/dist/assets/owl.theme.default.min.css';
-
+import Navbar from '../navbar/Navbar'
 import Applauds from "./Applauds";
 import { useEffect, useState } from "react";
+
 
 const options = {
     nav: true,
@@ -53,6 +54,8 @@ function ApplaudsList() {
 
 
     return (
+        <>
+        <Navbar />
         <div className="container">
             <div className="row mb-5">
                 {applauds.length>0 &&(<OwlCarousel className='owl-theme' {...options} >
@@ -63,6 +66,7 @@ function ApplaudsList() {
                 </OwlCarousel>)}
             </div>
         </div>
+        </>
     )
 }
 

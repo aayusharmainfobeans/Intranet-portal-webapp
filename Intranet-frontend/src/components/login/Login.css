@@ -27,6 +27,11 @@
     padding: 48px;
 }
 a {
+    color: white;
+    text-decoration: none;
+}
+
+#forgot{
     color: #ea1b3c;
     text-decoration: none;
 }
