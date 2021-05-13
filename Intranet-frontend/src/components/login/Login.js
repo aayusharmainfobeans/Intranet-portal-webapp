@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import "./Login.css";
 import logo1 from '../../images/logo-infobeans-white.svg';
@@ -14,19 +14,47 @@ const user={
 function Login(){
 
     let history=useHistory();
+    const [isValid, setIsValid] = useState(false);
+    const [message, setMessage] = useState();
 
     if(sessionStorage.token){
         history.push("/");
     }
 
+    function validateEmail(email) {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+
+    function checkPassword(password)
+    {
+        var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        return re.test(password);
+    }
+
+    const validateEmailSyntax = (e)=>{
+        e.preventDefault();
+        const email =e.target.value;
+        console.log(email);
+        if(validateEmail(email)){
+            setIsValid(true);
+            setMessage();
+        }else{
+            setIsValid(false);
+            setMessage('Invalid email Syntax');
+        }
+    }
+
+    
+    
 const loginCheck=(e)=>{
     e.preventDefault();
-
+    
     const email= e.target.elements[0].value;
     const password= e.target.elements[1].value;
-
+    
     if(email===user.email && password===user.password){
-        sessionStorage.setItem('token',email);
+        sessionStorage.setItem('token','asgayuhsdfajk');
         history.push("/home");
     } else{
         alert('invalid email password');
@@ -46,7 +74,6 @@ const loginCheck=(e)=>{
             <IconContext.Provider value={{size:"2rem", className: "global-class-name" }}>
             <CgMenuGridR />
             </IconContext.Provider>
-                 
             </li>
             </ul>
             </div>
@@ -58,8 +85,14 @@ const loginCheck=(e)=>{
                 </div> 
                 <div className="form-field">
                     <label className="form-label">Email</label>
-                        <input type="email" className="form-control" placeholder="Your InfoBeans email address" />
+                    <input type="text" className="form-control" placeholder="Your InfoBeans email address" onChange={(e)=>validateEmailSyntax(e)} />
+                    <div className={`message ${isValid ? 'success' : 'error'}`}>
+        {message}
+      </div>
+
                 </div>
+                
+
                 <div className="form-field">
                     <label className="form-label stretch">Password <a href="#" id="forgot">Forgot?</a></label>
                         <input type="password" className="form-control" placeholder="Your password" />
