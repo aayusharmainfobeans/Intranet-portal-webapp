@@ -44,6 +44,9 @@ function Login(){
             setIsValid(false);
             setMessage('Invalid email Syntax');
         }
+        if(email==0){
+            setMessage();
+        }
     }
     
     const validatePasswordSyntax = (e) =>{
@@ -57,7 +60,7 @@ function Login(){
             setPassErr('Invalid Password min 8 letter password, with at least a symbol, upper and lower case letters and a number');
         }
        if(password==0){
-           setPassErr();
+        setPassErr();
        }
     }
     
