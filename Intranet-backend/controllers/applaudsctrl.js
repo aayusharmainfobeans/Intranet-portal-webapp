@@ -8,10 +8,6 @@ createApplaud = (req,res)=>{
 
     const applaud = new Applaud(body);
 
-    if(!applaud){
-        return res.status(400).json({success: false,error:err})
-    }
-
     applaud.save().then(()=>{
         return res.status(201).json({
             success:true,
