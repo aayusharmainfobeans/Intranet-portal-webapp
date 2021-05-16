@@ -2,8 +2,9 @@ require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const db = require("./db/index");
-const applaudRouter = require('./routes/routes')
+const db = require("./config/index");
+const applaudRouter = require('./routes/routes');
+const session = require('express-session');
 const app = express();
 
 // Middlewares
@@ -17,12 +18,24 @@ db.once("open", function () {
   console.log("Database Connected !!!");
 });
 
+
 //Routes
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
 app.use('/api',applaudRouter);
+
+//Session
+app.use(session({
+  name:'intranet',
+  secret:'hdhnfvcfdmkfjlxl.lcxd.j',
+  saveUninitialized:false,
+  resave:false,
+  cookie:{
+    maxAge:(1000 * 60* 60)
+  }
+}));
 
 //Port
 const Port = process.env.Port || 5000;
