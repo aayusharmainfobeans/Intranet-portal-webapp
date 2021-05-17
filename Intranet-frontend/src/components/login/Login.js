@@ -76,7 +76,7 @@ const loginCheck=(e)=>{
     history.push("/home")
     }
    else{
-     alert("invalid credential")
+     alert("invalid Email and Password")
     }
 })
 }
