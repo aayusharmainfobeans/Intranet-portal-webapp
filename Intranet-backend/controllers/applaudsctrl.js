@@ -16,7 +16,7 @@ userSignUp = async (req,res)=>{
     }
 
     if(plainTextPassword.length<7){
-        return res.json({status:'error',error:'Password should be altleast 7 character'})
+        return res.json({status:'error',error:'Password should be atleast 7 character'})
     }
 
     const password =await bcrypt.hash(plainTextPassword,10);   
@@ -44,7 +44,7 @@ userSignin = async (req,res)=>{
     const user = await User.findOne({email}).lean()
 
     if(!user){
-      return res.json({status:'error',error:'Invalid email and password'})
+    return res.json({status:'error',error:'Invalid email and password'})
     }
 
     if(bcrypt.compare(password,user.password)){
@@ -52,7 +52,7 @@ userSignin = async (req,res)=>{
 
     return res.json({status:'ok',message:'Login Successful' ,data: token})
     }
-  res.json({status:'ok'});
+    res.json({status:'ok'});
 }
 
 createApplaud = (req,res)=>{
