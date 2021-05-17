@@ -44,6 +44,9 @@ function ApplaudsList() {
         axios({
             url: "http://localhost:8000/api/home",
             method:"GET",
+            headers : {
+                'Authorization': `token ${sessionStorage.token}`
+            }
         }).then((response)=>{
             console.log('api data is ',response.data.data);
             setApplauds(response.data.data)
