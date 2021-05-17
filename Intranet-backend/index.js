@@ -11,6 +11,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(bodyParser.json());
+//app.use('/uploads',express.static(__dirname+'/uploads'));
 
 // Database Connection
 db.on("error", console.error.bind(console, "MongoDB connection error:"));

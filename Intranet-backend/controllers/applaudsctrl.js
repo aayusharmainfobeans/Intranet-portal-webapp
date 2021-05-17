@@ -60,7 +60,17 @@ createApplaud = (req,res)=>{
 
     console.log(body);
 
-    const applaud = new Applaud(body);
+    const applaud = new Applaud({
+        avatar: './uploads/avatars/'+req.file.filename,
+        name:req.body.name,
+        position:req.body.position,
+        award:req.body.award,
+        awardDate:req.body.awardDate,
+        awardHover:req.body.awardHover,
+        awardDateHover:req.body.awardDateHover,
+        likes:req.body.likes,
+        comments:req.body.comments
+    });
 
     applaud.save().then(()=>{
         return res.status(201).json({
