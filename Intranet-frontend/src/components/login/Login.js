@@ -5,11 +5,8 @@ import logo1 from '../../images/logo-infobeans-white.svg';
 import logo2 from '../../images/logo-infobeans-black.svg';
 import {CgMenuGridR} from 'react-icons/all';
 import { IconContext } from "react-icons";
+import axios from 'axios';
 
-const user={
-    email:"aayu8982@gmail.com",
-    password:"aayu8982"
-}
 
 function Login(){
 
@@ -71,12 +68,17 @@ const loginCheck=(e)=>{
     const email= e.target.elements[0].value;
     const password= e.target.elements[1].value;
     
-    if(email===user.email && password===user.password){
-        sessionStorage.setItem('token','asgayuhsdfajk');
-        history.push("/home");
-    } else{
-        alert('invalid email password');
+    axios.post('http://localhost:8000/api/signin',{email:email,password:password})
+    .then((response)=>{
+    console.log(response.data.data)
+    if(response.data.data){
+    sessionStorage.setItem("token",response.data.data)
+    history.push("/home")
     }
+   else{
+     alert("invalid credential")
+    }
+})
 }
     
     return(

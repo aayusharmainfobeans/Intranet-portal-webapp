@@ -8,5 +8,6 @@ const router = express.Router()
 router.post('/create',AppCtrl.createApplaud);
 router.get('/home',AppCtrl.getApplauds);
 router.post('/register',AppCtrl.userSignUp)
+router.post('/signin',AppCtrl.userSignin);
 
 module.exports = router
