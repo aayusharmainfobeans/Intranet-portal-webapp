@@ -15,7 +15,7 @@ function Login(){
     const [message, setMessage] = useState();
     const [passwordErr,setPassErr]=useState();
 
-    if(sessionStorage.token){
+    if(localStorage.token){
         history.push("/");
     }
 
@@ -72,18 +72,18 @@ const loginCheck=(e)=>{
     .then((response)=>{
     console.log(response.data.data)
     if(response.data.data){
-    sessionStorage.setItem("token",response.data.data)
+    localStorage.setItem("token",response.data.data)
     history.push("/home")
     }
-   else{
-     alert("invalid Email and Password")
+    else{
+    alert("invalid Email and Password")
     }
 })
 }
     
     return(
     <div className="logincontainer">
-        <nav className="navbar navbar-light">
+        <nav className="navbar navbar-expand-lg sticky-top navbar-light">
             <div className="container-fluid">
             <a className="navbar-brand text-white" href="#">
                 <img src={logo1} alt="" width="128" height="40" className="d-inline-block align-text-down" />
@@ -108,7 +108,7 @@ const loginCheck=(e)=>{
                     <input type="text" className="form-control" placeholder="Your InfoBeans email address" onChange={(e)=>validateEmailSyntax(e)} />
                     <div className={`message ${isValid ? 'success' : 'error'}`}>
         {message}
-      </div>
+    </div>
 
                 </div>
                 

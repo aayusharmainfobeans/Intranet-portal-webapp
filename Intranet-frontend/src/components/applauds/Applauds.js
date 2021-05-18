@@ -10,7 +10,7 @@ function Applauds(props){
                     <div className="card">
                         <div className="card-body">
                             <div className="image">
-                                <img src="https://infobeans-intranet.web.app/assets/images/sample-profile-image.jpg" alt="photo"
+                                <img src={props.data.avatar} alt="photo"
                                 className="img-fluid rounded-circle w-50 m-3 " />
                             </div>
                             <h4 className="name">{props.data.name}</h4>

@@ -34,7 +34,7 @@ const options = {
 function ApplaudsList() {
     let history=useHistory();
 
-    if(!sessionStorage.token){
+    if(!localStorage.token){
         history.push("/login")
     }
     
@@ -45,7 +45,7 @@ function ApplaudsList() {
             url: "http://localhost:8000/api/home",
             method:"GET",
             headers : {
-                'Authorization': `token ${sessionStorage.token}`
+                'Authorization': `token ${localStorage.token }`
             }
         }).then((response)=>{
             console.log('api data is ',response.data.data);

@@ -3,13 +3,20 @@ import './Navbar.css'
 import logo1 from '../../images/logo-infobeans-white.svg';
 import {CgMenuGridR} from 'react-icons/all';
 import { IconContext } from "react-icons";
+import { useHistory } from "react-router-dom";
 
 function Navbar() {
+    let history=useHistory();
+
+    const onLogout=()=>{
+       localStorage.clear();
+       history.push('/login');
+    }
  
     return (
         <>
         <div class="header">
-        <nav class="navbar  navbar-light">
+        <nav class="navbar sticky-top navbar-light">
             <div class="container-fluid">
                 <a class="navbar-brand text-white" href="#">
                 <img
@@ -39,6 +46,9 @@ function Navbar() {
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Jobs</a>
+                </li>
+                <li class="nav-item">
+                <button type="button" class="btn btn-outline-danger" onClick={onLogout}>logout</button>
                 </li>
                 <li class="nav-item text-white">
                     <IconContext.Provider value={{size:"2rem", className: "global-class-name" }}>
