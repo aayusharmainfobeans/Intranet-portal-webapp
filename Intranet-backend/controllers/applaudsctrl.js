@@ -1,5 +1,6 @@
 require('dotenv').config();
 const Applaud = require('../models/applaudsmodel');
+const Contact = require('../models/contactModel')
 const bcrypt = require('bcryptjs');
 const User = require('../models/users')
 const jwt = require('jsonwebtoken');
@@ -96,10 +97,31 @@ getApplauds = async (req,res)=>{
     }).catch(err => console.log(err));
 }
 
+contactCtrl = (req,res)=>{
+    const response = req.body;
+    console.log(response);
+
+    const contact = new Contact(response);
+
+    contact.save().then(()=>{
+        return res.status(201).json({
+            success:true,
+            id:contact._id,
+            message: 'Thanks for Contact'
+        })
+    }).catch(error=>{
+        return res.status(400).json({
+            error,
+            message: 'OOps There is some issue'
+        })
+    })
+}
+
 
 module.exports = {
     createApplaud,
     getApplauds,
     userSignUp,
-    userSignin
+    userSignin,
+    contactCtrl
 }

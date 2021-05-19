@@ -11,5 +11,6 @@ router.post('/create',[applauds.uploadAvatar,auth], AppCtrl.createApplaud);
 router.get('/home',auth,AppCtrl.getApplauds);
 router.post('/register',AppCtrl.userSignUp)
 router.post('/signin',AppCtrl.userSignin);
+router.post('/contact',AppCtrl.contactCtrl);
 
 module.exports = router
