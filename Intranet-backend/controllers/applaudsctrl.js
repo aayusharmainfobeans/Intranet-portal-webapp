@@ -4,6 +4,8 @@ const Contact = require('../models/contactModel')
 const bcrypt = require('bcryptjs');
 const User = require('../models/users')
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
+const mailer = require('../config/mailer');
 
 userSignUp = async (req,res)=>{
     const {name, email, password: plainTextPassword} =req.body;
@@ -97,24 +99,46 @@ getApplauds = async (req,res)=>{
     }).catch(err => console.log(err));
 }
 
-contactCtrl = (req,res)=>{
+contactCtrl = async (req,res)=>{
     const response = req.body;
     console.log(response);
 
-    const contact = new Contact(response);
+    let mailDetails = {
+        from: 'aayu8982@gmail.com',
+        to: req.body.email,
+        subject:'Test email',
+        text: 'Our Team will contact you shortly '
+    };
 
-    contact.save().then(()=>{
+    try{
+        const contact = await Contact.create({
+            firstName:req.body.firstName,
+            lastName:req.body.lastName,
+            email:req.body.email,
+            description:req.body.description,
+            attachment: './uploads/contact/'+req.file.filename
+        })
+        console.log(contact)
+        mailer.mailTransporter.sendMail(mailDetails,function(err,data){
+            if(err){
+                console.log('Error Occurs');
+            } else {
+                console.log('Email Sent Successfully');
+            }
+        })
         return res.status(201).json({
             success:true,
             id:contact._id,
             message: 'Thanks for Contact'
         })
-    }).catch(error=>{
+
+    } catch(error){
         return res.status(400).json({
             error,
             message: 'OOps There is some issue'
         })
-    })
+    }
+
 }
 
 
