@@ -1,15 +1,14 @@
 const mongoose = require('mongoose');
 const multer = require('multer');
 const path = require('path');
-const CONTACT_PATH = path.join('.././Intranet-frontend/public/uploads/contact');
 const Schema = mongoose.Schema
 
 const ContactSchema = new Schema({
-    firstName:{
+    firstname:{
         type:String,
         required:true
     },
-    lastName:{
+    lastname:{
         type:String,
         required:true
     },
@@ -21,7 +20,7 @@ const ContactSchema = new Schema({
         type:String,
         required:true
     },
-    attachment:{
+    file:{
         type:String,
         required:true
     }
@@ -37,7 +36,8 @@ let storage = multer.diskStorage({
     }
 })
 
-ContactSchema.statics.uploadAttachment= multer({storage:storage}).single('attachment');
-ContactSchema.statics.contactPath=CONTACT_PATH;
+ContactSchema.statics.uploadAttachment= multer({storage:storage,limits: {
+    fileSize: 1024 * 1024 * 5, // max 5 MB
+  }}).single('file');
 
 module.exports = mongoose.model('Contact',ContactSchema);

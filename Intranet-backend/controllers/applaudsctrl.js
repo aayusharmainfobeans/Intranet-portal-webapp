@@ -6,6 +6,7 @@ const User = require('../models/users')
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const mailer = require('../config/mailer');
+const path = require('path')
 
 userSignUp = async (req,res)=>{
     const {name, email, password: plainTextPassword} =req.body;
@@ -28,6 +29,7 @@ userSignUp = async (req,res)=>{
     try{
         const response = await User.create({
             name,
+            role,
             email,
             password
         })
@@ -41,7 +43,6 @@ userSignUp = async (req,res)=>{
     res.json({status:'ok',message:'Registered Successfully'});
 }
 
-
 userSignin = async (req,res)=>{
     const {email,password} = req.body;
     const user = await User.findOne({email}).lean()
@@ -53,7 +54,7 @@ userSignin = async (req,res)=>{
     if(bcrypt.compare(password,user.password)){
     const token = jwt.sign({id:user._id,email:user.email},process.env.JWT_SECRET)
 
-    return res.json({status:'ok',message:'Login Successful' ,data: token})
+    return res.json({status:'ok',message:'Login Successful',role: user.role ,data: token})
     }
     res.json({status:'ok'});
 }
@@ -89,7 +90,6 @@ createApplaud = (req,res)=>{
     })
 }
 
-
 getApplauds = async (req,res)=>{
     await Applaud.find({},(err,applauds)=>{
         if(err){
@@ -99,46 +99,55 @@ getApplauds = async (req,res)=>{
     }).catch(err => console.log(err));
 }
 
-contactCtrl = async (req,res)=>{
+contactCtrl =async (req,res)=>{
     const response = req.body;
-    console.log(response);
-
+    const file = req.file.filename;
+    console.log(req.file.filename)
+    
     let mailDetails = {
-        from: 'aayu8982@gmail.com',
+        from: process.env.Email,
         to: req.body.email,
+        cc: ["aayush.sharma@infobeans.com","abhishek.patel@infobeans.com"],
         subject:'Test email',
-        text: 'Our Team will contact you shortly '
+        text: 'Our Team will contact you shortly ',
+        attachments: [{filename: file,path:'.././Intranet-frontend/public/uploads/contact/'+file,contentType: 'application/pdf'}]
     };
-
     try{
-        const contact = await Contact.create({
-            firstName:req.body.firstName,
-            lastName:req.body.lastName,
+        const contact =await Contact.create({
+            firstname:req.body.firstname,
+            lastname:req.body.lastname,
             email:req.body.email,
             description:req.body.description,
-            attachment: './uploads/contact/'+req.file.filename
+            file: req.file.filename
         })
-        console.log(contact)
+        console.log(contact);
         mailer.mailTransporter.sendMail(mailDetails,function(err,data){
             if(err){
                 console.log('Error Occurs');
             } else {
                 console.log('Email Sent Successfully');
-            }
+            } 
         })
         return res.status(201).json({
             success:true,
             id:contact._id,
             message: 'Thanks for Contact'
         })
-
     } catch(error){
         return res.status(400).json({
             error,
             message: 'OOps There is some issue'
         })
     }
+}
 
+contactListCtrl = async (req,res)=>{
+    await Contact.find({},(err,contacts)=>{
+        if(err){
+            return res.status(400).json({success:false,error:err})
+        }
+        return res.status(200).json({success:true,data: contacts})
+    }).catch(err => console.log(err));
 }
 
 
@@ -147,5 +156,6 @@ module.exports = {
     getApplauds,
     userSignUp,
     userSignin,
-    contactCtrl
+    contactCtrl,
+    contactListCtrl
 }
