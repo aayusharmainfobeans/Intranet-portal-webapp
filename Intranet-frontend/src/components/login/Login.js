@@ -56,9 +56,9 @@ function Login(){
             setIsValid(false);
             setPassErr('Invalid Password min 8 letter password, with at least a symbol, upper and lower case letters and a number');
         }
-       if(password==0){
+    if(password==0){
         setPassErr();
-       }
+        }
     }
     
     
