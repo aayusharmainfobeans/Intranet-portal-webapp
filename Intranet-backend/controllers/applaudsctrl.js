@@ -100,11 +100,18 @@ getApplauds = async (req,res)=>{
 }
 
 contactCtrl =async (req,res)=>{
-    const response = req.body;
-    const file = req.file.filename;
+    const firstname = req.body.firstname;
+  const lastname = req.body.lastname;
+  const email = req.body.email;
+  const description = req.body.description;
+  const file = req.file.filename;
+
+    if (!firstname || !lastname || !email || !description || !file) {
+        return res.status(422).json({ error: "Please Fill All data fields" });
+      }
     console.log(req.file.filename)
     
-    let mailDetails = {
+    let customerMailDetails = {
         from: process.env.Email,
         to: req.body.email,
         cc: ["aayush.sharma@infobeans.com","abhishek.patel@infobeans.com"],
@@ -112,6 +119,35 @@ contactCtrl =async (req,res)=>{
         text: 'Our Team will contact you shortly ',
         attachments: [{filename: file,path:'.././Intranet-frontend/public/uploads/contact/'+file,contentType: 'application/pdf'}]
     };
+    
+    let adminMailDetails = {
+        from: process.env.Email,
+        to: "aayush.sharma@infobeans.com",
+        subject:'New Customer Query',
+        html: `
+        <h3>New Query Details:</h3>
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td>${firstname} ${lastname}</td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td>${email}</td>
+            </tr>
+            <tr>
+                <td>Message:</td>
+                <td>${description}</td>
+            </tr>
+            <tr>
+                <td>File:</td>
+                <td>${file}</td>
+            </tr>
+        </table>
+    `,
+    attachments: [{filename: file,path:'.././Intranet-frontend/public/uploads/contact/'+file,contentType: 'application/pdf'}]
+    }
+
     try{
         const contact =await Contact.create({
             firstname:req.body.firstname,
@@ -120,10 +156,18 @@ contactCtrl =async (req,res)=>{
             description:req.body.description,
             file: req.file.filename
         })
+        
         console.log(contact);
-        mailer.mailTransporter.sendMail(mailDetails,function(err,data){
+        mailer.mailTransporter.sendMail(adminMailDetails,function(err,data){
             if(err){
-                console.log('Error Occurs');
+                console.log('Error Occurs',err);
+            } else {
+                console.log('Admin Email Sent Successfully');
+            } 
+        })
+        mailer.mailTransporter.sendMail(customerMailDetails,function(err,data){
+            if(err){
+                console.log('Error Occurs',err);
             } else {
                 console.log('Email Sent Successfully');
             } 
