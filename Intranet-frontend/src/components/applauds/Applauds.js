@@ -16,7 +16,7 @@ function Applauds(props){
                             <h4 className="name">{props.data.name}</h4>
                             <p>{props.data.position}</p>
                             <div className="award-date">
-                                <div className="Performence">
+                                <div className="Performence"> 
                                     <h4 className="title">{props.data.award}</h4>
                                 </div>
                                 <div className="date">

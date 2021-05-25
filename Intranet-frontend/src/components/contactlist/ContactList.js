@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import Navbar from '../navbar/Navbar'
 import './ContactList.css'
 
 function ContactList() {
@@ -20,11 +21,12 @@ useEffect(()=>{
 
 },[])
 return (
-    <div id="container" className0="container">
-        <table className="table table-striped">
+  <>
+    <Navbar />
+    <div id="container" className="container">
+        <table className="table table-bordered table-hover">
 <thead>
-<tr>
-
+<tr className="table-dark">
   <th scope="col">First Name</th>
   <th scope="col">Last Name</th>
   <th scope="col">Email</th>
@@ -47,6 +49,7 @@ return(
 </tbody>
 </table>
 </div>
+</>
 )
 }
 
