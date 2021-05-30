@@ -72,6 +72,7 @@ createApplaud = (req,res)=>{
         awardHover:req.body.awardHover,
         awardDateHover:req.body.awardDateHover,
         likes:req.body.likes,
+        
         comments:req.body.comments
     });
 
