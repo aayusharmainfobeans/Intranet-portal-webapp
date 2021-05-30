@@ -29,7 +29,6 @@ userSignUp = async (req,res)=>{
     try{
         const response = await User.create({
             name,
-            role,
             email,
             password
         })
@@ -99,16 +98,17 @@ getApplauds = async (req,res)=>{
     }).catch(err => console.log(err));
 }
 
+
 contactCtrl =async (req,res)=>{
     const firstname = req.body.firstname;
-  const lastname = req.body.lastname;
-  const email = req.body.email;
-  const description = req.body.description;
-  const file = req.file.filename;
+    const lastname = req.body.lastname;
+    const email = req.body.email;
+    const description = req.body.description;
+    const file = req.file.filename;
 
     if (!firstname || !lastname || !email || !description || !file) {
         return res.status(422).json({ error: "Please Fill All data fields" });
-      }
+    }
     console.log(req.file.filename)
     
     let customerMailDetails = {
